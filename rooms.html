@@ -24,11 +24,18 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background: var(--dark);
             color: var(--cream);
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         /* CUSTOM SCROLLBAR */
@@ -49,7 +56,8 @@
             top: 0;
             left: 0;
             right: 0;
-            padding: 25px 60px;
+            width: 100%;
+            padding: 25px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -108,11 +116,12 @@
         /* PAGE HEADER */
         .page-header {
             margin-top: 80px;
-            padding: 100px 60px 80px;
+            padding: 100px 5% 80px;
             text-align: center;
             background: linear-gradient(135deg, var(--charcoal) 0%, var(--dark) 100%);
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .page-header::before {
@@ -163,8 +172,9 @@
         /* ROOMS CONTAINER */
         .rooms-container {
             max-width: 1400px;
+            width: 100%;
             margin: 0 auto;
-            padding: 100px 60px;
+            padding: 100px 5%;
         }
 
         /* ROOM CARD */
@@ -179,6 +189,7 @@
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(50px);
+            width: 100%;
         }
 
         .room-card.visible {
@@ -288,13 +299,19 @@
             font-size: 2.2rem;
             font-weight: 600;
             color: var(--gold);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .room-price span {
             font-size: 1rem;
+            font-weight: 300;
             color: rgba(248, 246, 240, 0.5);
-            font-weight: 400;
+        }
+        #price-loader {
+            font-size: 2.2rem !important; /* Ana fiyat boyutuna zorla */
+            font-weight: 600 !important;   /* Kalın yap */
+            color: var(--gold) !important; /* Altın rengini geri ver */
+            opacity: 1 !important;         /* Şeffaflığı kaldır */
         }
 
         .room-actions {
@@ -305,8 +322,8 @@
         .btn-view {
             flex: 1;
             padding: 16px 30px;
-            background: transparent;
             border: 2px solid var(--gold);
+            background: transparent;
             color: var(--gold);
             font-size: 0.9rem;
             font-weight: 500;
@@ -363,9 +380,10 @@
         /* FOOTER */
         footer {
             background: var(--dark);
-            padding: 60px 60px 30px;
+            padding: 60px 5% 30px;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
             text-align: center;
+            width: 100%;
         }
 
         .footer-brand {
@@ -413,81 +431,63 @@
             box-shadow: 0 8px 35px rgba(37, 211, 102, 0.6);
         }
 
-        /* RESPONSIVE */
+                /* ROOM LIST RESPONSIVE - GÜNCELLENMİŞ */
         @media (max-width: 1024px) {
-            .room-card {
-                grid-template-columns: 1fr;
+            nav { padding: 20px 4%; }
+            .room-card { grid-template-columns: 1fr; }
+            .room-image { height: 350px; }
+        }
+        
+        @media (max-width: 768px) {
+            nav { padding: 15px 4%; }
+            .nav-links { 
+                gap: 12px; 
+                flex-wrap: wrap; 
+                justify-content: center; 
             }
+            .nav-links a { font-size: 0.75rem; }
             
-            .room-image {
-                height: 350px;
+            .page-header { padding: 60px 4% 40px; }
+            .page-header h1 { font-size: 2.2rem; }
+            
+            .rooms-container { padding: 40px 4%; }
+            
+            .room-image { height: 250px; } /* Mobilde çok yer kaplamasın */
+            .room-content { padding: 20px; }
+            
+            .room-title { font-size: 1.6rem; }
+            .room-price { font-size: 1.5rem; }
+            
+            /* Butonları dikey yaparken tam genişlik veriyoruz */
+            .room-actions { 
+                flex-direction: column; 
+                gap: 10px; 
+            }
+            .room-actions .cta-button { 
+                width: 100%; 
+                text-align: center; 
+                padding: 12px; 
             }
         }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 20px 30px;
+        
+        @media (max-width: 480px) {
+            .page-header h1 { 
+                font-size: 1.8rem; 
+                word-wrap: break-word; 
             }
-
-            .logo {
-                font-size: 1.5rem;
+            
+            .room-title { 
+                font-size: 1.4rem; 
+                word-wrap: break-word; 
             }
-
-            .nav-links {
-                gap: 20px;
+            
+            .room-meta { 
+                flex-direction: column; /* İkonlar alt alta gelsin ki sıkışmasın */
+                align-items: flex-start;
+                gap: 8px;
             }
-
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-
-            .page-header {
-                padding: 80px 30px 60px;
-            }
-
-            .page-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .page-subtitle {
-                font-size: 1rem;
-            }
-
-            .rooms-container {
-                padding: 60px 30px;
-            }
-
-            .room-card {
-                margin-bottom: 40px;
-            }
-
-            .room-image {
-                height: 300px;
-            }
-
-            .room-content {
-                padding: 30px;
-            }
-
-            .room-title {
-                font-size: 2rem;
-            }
-
-            .room-meta {
-                gap: 15px;
-            }
-
-            .room-price {
-                font-size: 1.8rem;
-            }
-
-            .room-actions {
-                flex-direction: column;
-            }
-
-            footer {
-                padding: 40px 30px 20px;
-            }
+            
+            .room-image { height: 200px; }
         }
     </style>
 </head>
@@ -537,7 +537,7 @@
                     İş seyahatleri ve kısa süreli konaklamalar için ideal bir seçim.
                 </p>
                 <div class="room-price">
-                    2.500 ₺ <span>/ Gece</span>
+                    <span id="price-loader">...</span> ₺ <span>/ Gece</span>
                 </div>
                 <div class="room-actions">
                     <a href="room-detail.html" class="btn-view">İncele</a>
@@ -592,6 +592,33 @@
                 }
             });
         });
+        async function getPriceFromSheet() {
+            const sheetId = '1IVsdSelYH8eH6rLLIDp5B9JddVMBH0NxDaMPD2IBTJM';
+            const sheetName = 'Sheet1';
+            
+            // A3 hücresini hedefleyen özel sorgu (Select A)
+            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&range=A3:A3`;
+        
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                
+                // Google'ın JSON formatındaki koruyucu metni temizleme
+                const jsonData = JSON.parse(text.substring(47).slice(0, -2));
+                
+                // Veriyi çekme
+                if (jsonData.table.rows.length > 0 && jsonData.table.rows[0].c[0]) {
+                    const price = jsonData.table.rows[0].c[0].v;
+                    document.getElementById('price-loader').innerText = price;
+                } else {
+                    document.getElementById('price-loader').innerText = "Hücre Boş";
+                }
+            } catch (error) {
+                console.error('Bağlantı Hatası:', error);
+                document.getElementById('price-loader').innerText = "Hata!";
+            }
+        }
+        getPriceFromSheet();
     </script>
 </body>
 </html>

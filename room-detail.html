@@ -160,7 +160,9 @@
         .thumbnail-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            grid-template-rows: repeat(6, 1fr);
+            gap: 10px;
+            height: 100%;
         }
 
         .thumbnail {
@@ -527,7 +529,9 @@
             .main-image { height: 280px; } /* Mobilde ana resim çok devasa olmasın */
             
             .thumbnail-grid {
-                grid-template-columns: repeat(4, 1fr); /* 5 tane çok sıkışık durabilir, 4 daha iyi */
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: 1fr;
+                height: 70px;
                 gap: 8px;
             }
         

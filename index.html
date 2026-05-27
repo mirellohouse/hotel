@@ -714,16 +714,16 @@
         .phone-float {
             position: fixed;
             bottom: 30px;
-            right: 105px; /* WhatsApp'ın solunda durur */
-            width: 65px;
-            height: 65px;
+            right: 105px;
+            width: 60px;      /* ← 65'ten 60'a */
+            height: 60px;     /* ← 65'ten 60'a */
+            font-size: 1.5rem; /* ← 1.7'den küçült */
             background: linear-gradient(135deg, #D4AF37, #b8942a);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.7rem;
             z-index: 999;
             box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
             transition: all 0.4s ease;
@@ -798,10 +798,17 @@
         
         @media (max-width: 480px) {
             .phone-float {
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            right: 85px;
+            bottom: 30px;
+            }
+            
+            .whatsapp-float {
                 width: 45px;
                 height: 45px;
-                font-size: 1.2rem;
-                right: 85px;
+                font-size: 1.5rem;
             }
             .logo { font-size: 1.2rem; letter-spacing: 1px; }
             

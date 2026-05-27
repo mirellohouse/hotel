@@ -711,7 +711,29 @@
             color: rgba(248, 246, 240, 0.5);
             font-size: 0.9rem;
         }
-
+        .phone-float {
+            position: fixed;
+            bottom: 30px;
+            right: 105px; /* WhatsApp'ın solunda durur */
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #D4AF37, #b8942a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.7rem;
+            z-index: 999;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+            transition: all 0.4s ease;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .phone-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
+        }
         /* WHATSAPP FLOAT */
         .whatsapp-float {
             position: fixed;
@@ -775,6 +797,12 @@
         }
         
         @media (max-width: 480px) {
+            .phone-float {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+                right: 85px;
+            }
             .logo { font-size: 1.2rem; letter-spacing: 1px; }
             
             .hero h1 { font-size: 2rem; }
@@ -980,7 +1008,10 @@
             <p>© 2026 Mirello House. Tüm Hakları Saklıdır.</p>
         </div>
     </footer>
-
+    <!-- PHONE FLOAT -->
+    <a href="tel:+905524363612" class="phone-float">
+        <i class="fas fa-phone"></i>
+    </a>
     <a href="https://wa.me/905524363612" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>

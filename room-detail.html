@@ -479,6 +479,29 @@
             letter-spacing: 0.5px;
         }
 
+		.phone-float {
+		    position: fixed;
+		    bottom: 30px;
+		    right: 105px;
+		    width: 60px;
+		    height: 60px;
+		    background: linear-gradient(135deg, #D4AF37, #b8942a);
+		    border-radius: 50%;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    color: white;
+		    font-size: 1.5rem;
+		    z-index: 999;
+		    box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+		    transition: all 0.4s ease;
+		    animation: pulse 2s ease-in-out infinite;
+		}
+		
+		.phone-float:hover {
+		    transform: scale(1.15);
+		    box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
+		}
         /* WHATSAPP FLOAT */
         .whatsapp-float {
             position: fixed;
@@ -555,6 +578,19 @@
         }
         
         @media (max-width: 480px) {
+			.phone-float {
+			    width: 45px;
+			    height: 45px;
+			    font-size: 1.2rem;
+			    right: 85px;
+			    bottom: 30px;
+			}
+			
+			.whatsapp-float {
+			    width: 45px;
+			    height: 45px;
+			    font-size: 1.5rem;
+			}
             .room-title { 
                 font-size: 1.5rem; 
                 word-wrap: break-word; /* Başlığın taşmasını kesin engeller */
@@ -574,7 +610,7 @@
             .whatsapp-float {
                 width: 45px;
                 height: 45px;
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -712,7 +748,10 @@
                         <span>Anında Onay</span>
                     </div>
                 </div>
-
+				<!-- PHONE FLOAT -->
+				<a href="tel:+905524363612" class="phone-float">
+				    <i class="fas fa-phone"></i>
+				</a>
                 <a href="https://wa.me/905524363612?text=Merhaba, Deluxe Room için rezervasyon yapmak istiyorum." 
                    class="btn-book-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp ile Ayırt

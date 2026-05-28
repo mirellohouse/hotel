@@ -9,11 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-W6TS66DV');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W6TS66DV');</script>
     <style>
         :root {
             --gold: #D4AF37;
@@ -24,17 +24,8 @@
             --gold-light: #E8D499;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; width: 100%; }
         body {
             font-family: 'Montserrat', sans-serif;
             background: var(--dark);
@@ -44,33 +35,23 @@
             position: relative;
         }
 
-        /* CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--charcoal);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 10px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--charcoal); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        /* NAVIGATION */
+        /* NAV */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             width: 100%;
             padding: 25px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(10,10,10,0.95);
             backdrop-filter: blur(20px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
         .logo {
@@ -82,11 +63,7 @@
             cursor: pointer;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
 
         .nav-links a {
             color: var(--cream);
@@ -111,15 +88,12 @@
             transition: width 0.4s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::before { width: 100%; }
 
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        /* GALLERY SECTION */
+        /* =============================================
+           GALLERY — 3D PANEL KAROUSELİ
+           ============================================= */
         .gallery-section {
             margin-top: 80px;
             padding: 60px 5%;
@@ -128,86 +102,167 @@
             overflow: hidden;
         }
 
-        .gallery-container {
+        /* Dış sahne: perspective burada tanımlanır */
+        .gallery-stage {
             max-width: 1400px;
-            width: 100%;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2.5fr 1fr;
-            gap: 20px;
-            height: 450px;
-        }
-
-        .main-image {
             position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            transition: border-color 0.5s ease;
-            max-height: 450px;
+            height: 470px;
         }
 
-        .main-image:hover {
-            border-color: var(--gold);
-        }
-
-        .main-image img {
+        /* Perspective kapsayıcısı */
+        .carousel-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center;
-            background: var(--charcoal);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            perspective: 1100px;
         }
 
-        .main-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            height: 450px;
-            overflow-y: auto;
-            padding-bottom: 5px;  /* ← bunu ekle */
-        }
-
-        .thumbnail {
-            position: relative;
+        /* Tüm paneller için ortak */
+        .carousel-panel {
+            position: absolute;
             overflow: hidden;
-            cursor: pointer;
-            border: 2px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s ease;
-            height: 100px;
+            transition:
+                transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                filter     0.65s ease,
+                opacity    0.65s ease;
         }
 
-        .thumbnail.active {
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .thumbnail:hover {
-            border-color: var(--gold);
-            transform: scale(1.02);
-        }
-
-        .thumbnail img {
+        .carousel-panel img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transition: all 0.5s ease;
-            filter: grayscale(30%) brightness(0.8);
+            display: block;
         }
 
-        .thumbnail:hover img, .thumbnail.active img {
-            filter: grayscale(0%) brightness(1);
-        }
-        .thumbnail:last-child {
-            margin-bottom: 15px;
+        /* ——— SOL PANEL (önceki resim) ——— */
+        .panel-prev {
+            width: 21%;
+            height: 82%;
+            top: 9%;
+            left: 0;
+            transform-origin: right center;   /* sağ kenardan menteşe gibi döner */
+            transform: rotateY(50deg);
+            z-index: 2;
+            cursor: pointer;
+            border: 2px solid rgba(212,175,55,0.08);
+            filter: brightness(0.5);
         }
 
-        /* ROOM DETAILS SECTION */
+        .panel-prev:hover {
+            filter: brightness(0.72);
+        }
+
+        /* ——— ORTA PANEL (aktif resim) ——— */
+        .panel-current {
+            width: 58%;
+            height: 100%;
+            left: 21%;
+            transform: rotateY(0deg);
+            z-index: 3;
+            border: 2px solid rgba(212,175,55,0.45);
+            box-shadow:
+                0 0 0 1px rgba(212,175,55,0.1),
+                0 30px 80px rgba(0,0,0,0.7);
+            filter: brightness(1);
+        }
+
+        /* ——— SAĞ PANEL (sonraki resim) ——— */
+        .panel-next {
+            width: 21%;
+            height: 82%;
+            top: 9%;
+            right: 0;
+            transform-origin: left center;    /* sol kenardan menteşe gibi döner */
+            transform: rotateY(-50deg);
+            z-index: 2;
+            cursor: pointer;
+            border: 2px solid rgba(212,175,55,0.08);
+            filter: brightness(0.5);
+        }
+
+        .panel-next:hover {
+            filter: brightness(0.72);
+        }
+
+        /* ——— Ana resim yumuşak geçiş ——— */
+        .panel-current img {
+            transition: opacity 0.25s ease;
+        }
+
+        /* ——— NAV BUTONLARI ——— */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(10,10,10,0.72);
+            border: 1px solid rgba(212,175,55,0.5);
+            color: var(--gold);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-50%) scale(1.12);
+        }
+
+        /* Butonlar orta panelinla yan panelin sınırında */
+        .btn-prev { left: calc(21% - 23px); }
+        .btn-next { right: calc(21% - 23px); }
+
+        /* ——— SAYAÇ ——— */
+        .slide-counter {
+            position: absolute;
+            bottom: 18px;
+            right: calc(21% + 18px);
+            z-index: 5;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            color: rgba(248,246,240,0.75);
+            background: rgba(10,10,10,0.58);
+            padding: 4px 14px;
+            border: 1px solid rgba(212,175,55,0.25);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* ——— DOTS ——— */
+        .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.25);
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            transition: all 0.35s ease;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            width: 22px;
+            border-radius: 3px;
+        }
+
+        /* ROOM DETAILS */
         .room-details {
             max-width: 1600px;
             width: 100%;
@@ -225,10 +280,7 @@
         }
 
         @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .room-title {
@@ -246,7 +298,7 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
             padding-bottom: 30px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212,175,55,0.2);
         }
 
         .meta-item {
@@ -254,13 +306,10 @@
             align-items: center;
             gap: 10px;
             font-size: 1rem;
-            color: rgba(248, 246, 240, 0.7);
+            color: rgba(248,246,240,0.7);
         }
 
-        .meta-item i {
-            color: var(--gold);
-            font-size: 1.2rem;
-        }
+        .meta-item i { color: var(--gold); font-size: 1.2rem; }
 
         .section-block {
             background: var(--slate);
@@ -271,7 +320,7 @@
         }
 
         .section-block:hover {
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(212,175,55,0.05);
             transform: translateX(5px);
         }
 
@@ -286,7 +335,7 @@
         .section-block p {
             font-size: 1.05rem;
             line-height: 1.9;
-            color: rgba(248, 246, 240, 0.75);
+            color: rgba(248,246,240,0.75);
             margin-bottom: 15px;
         }
 
@@ -301,36 +350,25 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(212,175,55,0.05);
             border-left: 2px solid var(--gold);
             transition: all 0.3s ease;
         }
 
         .amenity-item:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212,175,55,0.1);
             transform: translateX(5px);
         }
 
-        .amenity-item i {
-            color: var(--gold);
-            font-size: 1.3rem;
-            min-width: 25px;
-        }
+        .amenity-item i { color: var(--gold); font-size: 1.3rem; min-width: 25px; }
+        .amenity-item span { font-size: 0.95rem; color: rgba(248,246,240,0.8); }
 
-        .amenity-item span {
-            font-size: 0.95rem;
-            color: rgba(248, 246, 240, 0.8);
-        }
-
-        .house-rules {
-            list-style: none;
-            padding-left: 0;
-        }
+        .house-rules { list-style: none; padding-left: 0; }
 
         .house-rules li {
             font-size: 1.05rem;
             line-height: 1.9;
-            color: rgba(248, 246, 240, 0.75);
+            color: rgba(248,246,240,0.75);
             margin-bottom: 12px;
             padding-left: 25px;
             position: relative;
@@ -344,9 +382,7 @@
             font-weight: bold;
         }
 
-        .house-rules li strong {
-            color: var(--gold);
-        }
+        .house-rules li strong { color: var(--gold); }
 
         /* BOOKING SIDEBAR */
         .booking-sidebar {
@@ -358,7 +394,7 @@
         .booking-card {
             background: var(--slate);
             padding: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212,175,55,0.2);
             position: sticky;
             top: 120px;
             transition: all 0.4s ease;
@@ -366,19 +402,19 @@
 
         .booking-card:hover {
             border-color: var(--gold);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .price-section {
             text-align: center;
             padding-bottom: 30px;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212,175,55,0.2);
         }
 
         .price-label {
             font-size: 0.9rem;
-            color: rgba(248, 246, 240, 0.6);
+            color: rgba(248,246,240,0.6);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
@@ -391,20 +427,16 @@
             color: var(--gold);
             margin-bottom: 5px;
         }
+
         #price-loader {
             color: var(--gold) !important;
             font-family: 'Playfair Display', serif !important;
             font-weight: 600 !important;
         }
 
-        .price-note {
-            font-size: 0.85rem;
-            color: rgba(248, 246, 240, 0.5);
-        }
+        .price-note { font-size: 0.85rem; color: rgba(248,246,240,0.5); }
 
-        .booking-features {
-            margin-bottom: 30px;
-        }
+        .booking-features { margin-bottom: 30px; }
 
         .booking-feature {
             display: flex;
@@ -412,13 +444,10 @@
             gap: 12px;
             padding: 12px 0;
             font-size: 0.95rem;
-            color: rgba(248, 246, 240, 0.8);
+            color: rgba(248,246,240,0.8);
         }
 
-        .booking-feature i {
-            color: #25d366;
-            font-size: 1.1rem;
-        }
+        .booking-feature i { color: #25d366; font-size: 1.1rem; }
 
         .btn-book-whatsapp {
             display: flex;
@@ -435,23 +464,21 @@
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 20px rgba(37,211,102,0.3);
         }
 
         .btn-book-whatsapp:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 8px 30px rgba(37,211,102,0.5);
         }
 
-        .btn-book-whatsapp i {
-            font-size: 1.5rem;
-        }
+        .btn-book-whatsapp i { font-size: 1.5rem; }
 
         .booking-note {
             text-align: center;
             margin-top: 20px;
             font-size: 0.85rem;
-            color: rgba(248, 246, 240, 0.5);
+            color: rgba(248,246,240,0.5);
             line-height: 1.6;
         }
 
@@ -459,7 +486,7 @@
         footer {
             background: var(--dark);
             padding: 60px 5% 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid rgba(212,175,55,0.2);
             text-align: center;
             width: 100%;
         }
@@ -473,152 +500,100 @@
             letter-spacing: 2px;
         }
 
-        .footer-text {
-            color: rgba(248, 246, 240, 0.5);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
+        .footer-text { color: rgba(248,246,240,0.5); font-size: 0.9rem; letter-spacing: 0.5px; }
 
-		.phone-float {
-		    position: fixed;
-		    bottom: 30px;
-		    right: 105px;
-		    width: 60px;
-		    height: 60px;
-		    background: linear-gradient(135deg, #D4AF37, #b8942a);
-		    border-radius: 50%;
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    color: white;
-		    font-size: 1.5rem;
-		    z-index: 999;
-		    box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
-		    transition: all 0.4s ease;
-		    animation: pulse 2s ease-in-out infinite;
-		}
-		
-		.phone-float:hover {
-		    transform: scale(1.15);
-		    box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
-		}
-        /* WHATSAPP FLOAT */
-        .whatsapp-float {
+        /* FLOAT BUTTONS */
+        .phone-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #25d366, #128C7E);
+            bottom: 30px; right: 105px;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #D4AF37, #b8942a);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem;
             z-index: 999;
-            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 5px 25px rgba(212,175,55,0.4);
             transition: all 0.4s ease;
             animation: pulse 2s ease-in-out infinite;
+			text-decoration: none;
+			line-height: 1;
+        }
+
+        .phone-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 35px rgba(212,175,55,0.6);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #25d366, #128C7E);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 2rem;
+            z-index: 999;
+            box-shadow: 0 5px 25px rgba(37,211,102,0.4);
+            transition: all 0.4s ease;
+            animation: pulse 2s ease-in-out infinite;
+			text-decoration: none;
+			line-height: 1;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50%       { transform: scale(1.1); }
         }
 
         .whatsapp-float:hover {
             transform: scale(1.15);
-            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.6);
+            box-shadow: 0 8px 35px rgba(37,211,102,0.6);
         }
-        
-        /* ROOMS HTML RESPONSIVE - GÜNCELLENMİŞ */
+
+        /* ——— RESPONSIVE ——— */
         @media (max-width: 1024px) {
             nav { padding: 20px 4%; }
             .gallery-section { padding: 40px 4%; }
-            .room-details {
-                padding: 60px 4%;
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
+            .room-details { padding: 60px 4%; grid-template-columns: 1fr; gap: 40px; }
             .booking-card { position: relative; top: 0; }
         }
-        
+
         @media (max-width: 768px) {
             nav { padding: 15px 4%; }
-            .nav-links { 
-                gap: 12px; 
-                flex-wrap: wrap; 
-                justify-content: center; 
-            }
+            .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
             .nav-links a { font-size: 0.75rem; }
             .logo { font-size: 1.3rem; }
-        
-            .gallery-container {
-                grid-template-columns: 1fr;
-                height: auto;
-                gap: 10px;
-            }
-            .main-image { height: 280px; } /* Mobilde ana resim çok devasa olmasın */
-            
-            .thumbnail-grid {
-                grid-template-columns: repeat(6, 1fr);
-                grid-template-rows: 1fr;
-                height: 70px;
-                gap: 8px;
-            }
-        
-            .room-title { font-size: 1.8rem; } /* Kesilmeyi önlemek için küçülttük */
+
+            /* Mobilde yan panelleri gizle, orta panel tam genişlik */
+            .gallery-stage { height: 300px; }
+            .panel-prev, .panel-next { display: none; }
+            .panel-current { width: 100%; left: 0; }
+            .btn-prev { left: 12px; }
+            .btn-next { right: 12px; }
+            .slide-counter { right: 16px; bottom: 12px; }
+
+            .room-title { font-size: 1.8rem; }
             .price-amount { font-size: 2rem; }
-            
             .amenities-grid { grid-template-columns: 1fr; }
-            
             .section-block { padding: 25px 20px; }
             .section-block h3 { font-size: 1.4rem; }
         }
-        
+
         @media (max-width: 480px) {
-			.phone-float {
-			    width: 45px;
-			    height: 45px;
-			    font-size: 1.2rem;
-			    right: 85px;
-			    bottom: 30px;
-			}
-			
-			.whatsapp-float {
-			    width: 45px;
-			    height: 45px;
-			    font-size: 1.5rem;
-			}
-            .room-title { 
-                font-size: 1.5rem; 
-                word-wrap: break-word; /* Başlığın taşmasını kesin engeller */
-            }
-            
-            .main-image { height: 220px; } /* Küçük ekranlarda ideal yükseklik */
-            
-            .thumbnail-grid {
-                grid-template-columns: repeat(3, 1fr); /* Çok küçük ekranda 3'lü dizilim */
-            }
-        
+            .phone-float { width: 45px; height: 45px; font-size: 1.2rem; right: 85px; bottom: 30px; }
+            .whatsapp-float { width: 45px; height: 45px; font-size: 1.5rem; }
+            .gallery-stage { height: 240px; }
+            .room-title { font-size: 1.5rem; word-wrap: break-word; }
             .price-amount { font-size: 1.8rem; }
-            
             .section-block h3 { font-size: 1.2rem; }
-            
-            /* WhatsApp butonunu biraz küçültelim parmak kaplamasın */
-            .whatsapp-float {
-                width: 45px;
-                height: 45px;
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6TS66DV"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- NAVIGATION -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6TS66DV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- NAV -->
     <nav>
         <div class="logo">MIRELLO HOUSE</div>
         <ul class="nav-links">
@@ -628,41 +603,51 @@
         </ul>
     </nav>
 
-    <!-- GALLERY SECTION -->
+    <!-- GALLERY -->
     <section class="gallery-section">
-        <div class="gallery-container">
-            <div class="main-image">
-                <img id="mainImage" src="room1.jpeg" alt="Deluxe Room">
+        <div class="gallery-stage">
+            <div class="carousel-wrapper">
+
+                <!-- Sol panel — önceki resim, sağ kenarından menteşeli -->
+                <div class="carousel-panel panel-prev" id="panel-prev" onclick="prevSlide()">
+                    <img id="img-prev" src="room7.jpeg" alt="Önceki görsel">
+                </div>
+
+                <!-- Orta panel — aktif resim -->
+                <div class="carousel-panel panel-current" id="panel-current">
+                    <img id="img-current" src="room1.jpeg" alt="Deluxe Room">
+                </div>
+
+                <!-- Sağ panel — sonraki resim, sol kenarından menteşeli -->
+                <div class="carousel-panel panel-next" id="panel-next" onclick="nextSlide()">
+                    <img id="img-next" src="room2.jpeg" alt="Sonraki görsel">
+                </div>
+
             </div>
-            <div class="thumbnail-grid">
-				<div class="thumbnail" onclick="changeImage('room2.jpeg', this)">
-                    <img src="room2.jpeg" alt="Görsel 2">
-                </div>
-				<div class="thumbnail" onclick="changeImage('room3.jpeg', this)">
-                    <img src="room3.jpeg" alt="Görsel 3">
-                </div>
-				<div class="thumbnail" onclick="changeImage('room4.jpeg', this)">
-                    <img src="room4.jpeg" alt="Görsel 4">
-                </div>
-				<div class="thumbnail" onclick="changeImage('room5.jpeg', this)">
-                    <img src="room5.jpeg" alt="Görsel 5">
-                </div>
-				<div class="thumbnail" onclick="changeImage('room6.jpeg', this)">
-                    <img src="room6.jpeg" alt="Görsel 6">
-                </div>
-				<div class="thumbnail" onclick="changeImage('room7.jpeg', this)">
-                    <img src="room7.jpeg" alt="Görsel 7">
-                </div>
-				
+
+            <!-- Navigasyon butonları -->
+            <button class="nav-btn btn-prev" onclick="prevSlide()" aria-label="Önceki">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn btn-next" onclick="nextSlide()" aria-label="Sonraki">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Sayaç -->
+            <div class="slide-counter">
+                <span id="slide-num">1</span>&thinsp;/&thinsp;<span id="slide-total">7</span>
             </div>
         </div>
+
+        <!-- Nokta indikatörleri -->
+        <div class="slide-dots" id="slide-dots"></div>
     </section>
 
     <!-- ROOM DETAILS -->
     <section class="room-details">
         <div class="details-left">
             <h1 class="room-title">Deluxe Room</h1>
-            
+
             <div class="room-meta">
                 <div class="meta-item">
                     <i class="fas fa-user"></i>
@@ -681,12 +666,12 @@
             <div class="section-block">
                 <h3>Oda Hakkında</h3>
                 <p>
-                    Şehir manzaralı odalarımız, sade şıklığı ve fonksiyonelliği bir araya getiriyor. 
-                    Yumuşak renk tonları ve modern mobilyalarla döşenmiş odamızda günün yorgunluğunu atabilirsiniz. 
+                    Şehir manzaralı odalarımız, sade şıklığı ve fonksiyonelliği bir araya getiriyor.
+                    Yumuşak renk tonları ve modern mobilyalarla döşenmiş odamızda günün yorgunluğunu atabilirsiniz.
                     İdeal bir uyku deneyimi için ortopedik yataklar kullanılmıştır.
                 </p>
                 <p>
-                    İş seyahatleri ve kısa süreli konaklamalar için mükemmel bir tercihtir. 
+                    İş seyahatleri ve kısa süreli konaklamalar için mükemmel bir tercihtir.
                     Odamızda çalışma masası ve yüksek hızlı internet bağlantısı mevcuttur.
                 </p>
             </div>
@@ -749,7 +734,7 @@
                     </div>
                 </div>
 
-                <a href="https://wa.me/905524363612?text=Merhaba, Deluxe Room için rezervasyon yapmak istiyorum." 
+                <a href="https://wa.me/905524363612?text=Merhaba, Deluxe Room için rezervasyon yapmak istiyorum."
                    class="btn-book-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp ile Ayırt
                 </a>
@@ -766,69 +751,127 @@
         <div class="footer-brand">MIRELLO HOUSE</div>
         <p class="footer-text">© 2026 Mirello House. Tüm Hakları Saklıdır.</p>
     </footer>
-	<!-- PHONE FLOAT -->
-	<a href="tel:+905524363612" class="phone-float">
-		<i class="fas fa-phone"></i>
-	</a>
-    <!-- WHATSAPP FLOAT -->
+
+    <a href="tel:+905524363612" class="phone-float">
+        <i class="fas fa-phone"></i>
+    </a>
+
     <a href="https://wa.me/905524363612" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
-        function changeImage(imageSrc, thumbnailElement) {
-            // Ana resmi değiştir
-            document.getElementById('mainImage').src = imageSrc;
-            
-            // Aktif thumbnail'i güncelle
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-                thumb.classList.remove('active');
-            });
-            
-            if (thumbnailElement) {
-                thumbnailElement.classList.add('active');
-            }
+        const images = [
+            'room1.jpeg', 'room2.jpeg', 'room3.jpeg', 'room4.jpeg',
+            'room5.jpeg', 'room6.jpeg', 'room7.jpeg'
+        ];
+        let current = 0;
+        let busy = false;
+
+        const imgPrev    = document.getElementById('img-prev');
+        const imgCurrent = document.getElementById('img-current');
+        const imgNext    = document.getElementById('img-next');
+        const slideNum   = document.getElementById('slide-num');
+        const dotsEl     = document.getElementById('slide-dots');
+
+        /* Noktaları oluştur */
+        document.getElementById('slide-total').textContent = images.length;
+        images.forEach((_, i) => {
+            const d = document.createElement('button');
+            d.className = 'dot' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', (i + 1) + '. görsel');
+            d.onclick = () => goTo(i);
+            dotsEl.appendChild(d);
+        });
+
+        function getDots() { return dotsEl.querySelectorAll('.dot'); }
+
+        function refreshDots() {
+            getDots().forEach((d, i) => d.classList.toggle('active', i === current));
         }
 
-        // SMOOTH SCROLL
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        function goTo(idx) {
+            if (busy || idx === current) return;
+            current = idx;
+            applyChange();
+        }
+
+        function applyChange() {
+            busy = true;
+            const prev = (current - 1 + images.length) % images.length;
+            const next = (current + 1) % images.length;
+
+            /* Yan paneller anında değişir */
+            imgPrev.src = images[prev];
+            imgNext.src = images[next];
+
+            /* Ana resim fade */
+            imgCurrent.style.opacity = '0';
+            setTimeout(() => {
+                imgCurrent.src = images[current];
+                imgCurrent.style.opacity = '1';
+                slideNum.textContent = current + 1;
+                refreshDots();
+                setTimeout(() => busy = false, 300);
+            }, 220);
+        }
+
+        function nextSlide() {
+            if (busy) return;
+            current = (current + 1) % images.length;
+            applyChange();
+        }
+
+        function prevSlide() {
+            if (busy) return;
+            current = (current - 1 + images.length) % images.length;
+            applyChange();
+        }
+
+        /* Klavye desteği */
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft')  prevSlide();
         });
+
+        /* Dokunmatik (swipe) desteği */
+        let touchX = 0;
+        const stage = document.querySelector('.gallery-stage');
+        stage.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+        stage.addEventListener('touchend', e => {
+            const diff = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 45) { diff > 0 ? nextSlide() : prevSlide(); }
+        });
+
+        /* Fiyat çekme */
         async function getPriceFromSheet() {
             const sheetId = '1IVsdSelYH8eH6rLLIDp5B9JddVMBH0NxDaMPD2IBTJM';
-            const sheetName = 'Sheet1';
-            
-            // A3 hücresini çeker
-            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&range=A3:A3`;
-    
+            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Sheet1&range=A3:A3`;
             try {
-                const response = await fetch(url);
-                const text = await response.text();
-                const jsonData = JSON.parse(text.substring(47).slice(0, -2));
-                
-                if (jsonData.table.rows.length > 0 && jsonData.table.rows[0].c[0]) {
-                    const price = jsonData.table.rows[0].c[0].v;
-                    // Fiyatı ve nokta formatını basar
+                const res  = await fetch(url);
+                const text = await res.text();
+                const json = JSON.parse(text.substring(47).slice(0, -2));
+                if (json.table.rows.length > 0 && json.table.rows[0].c[0]) {
+                    const price = json.table.rows[0].c[0].v;
                     document.getElementById('price-loader').innerText = Number(price).toLocaleString('tr-TR');
                 } else {
-                    document.getElementById('price-loader').innerText = "Sorunuz";
+                    document.getElementById('price-loader').innerText = 'Sorunuz';
                 }
-            } catch (error) {
-                console.error('Fiyat hatası:', error);
+            } catch (e) {
+                console.error('Fiyat hatası:', e);
             }
         }
-    
+
         getPriceFromSheet();
 
+        /* Smooth scroll */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
     </script>
 </body>
 </html>
